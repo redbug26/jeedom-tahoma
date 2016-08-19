@@ -1,0 +1,10 @@
+{
+    "plugins\/tahoma\/plugin_info\/configuration.php": {
+        "userId": "Utilisateur"
+    },
+    "plugins\/tahoma\/desktop\/modal\/manage.protocole.php": {
+        "Protocole": "Protocole",
+        "Nom": "Nom",
+        "Actif": "Actif"
+    }
+}

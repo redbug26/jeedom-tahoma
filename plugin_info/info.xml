@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <id>tahoma</id>
+    <name>Tahoma</name>
+    <description>Plugin pour utiliser Tahoma</description>
+    <icon>fa fa-signal</icon>
+    <licence>AGPL</licence>
+    <author>M.Vanhove</author>
+    <installation>Aucune</installation>
+    <require>1.10</require>
+    <version>0.6</version>
+    <category>automation protocol</category>
+</info>
