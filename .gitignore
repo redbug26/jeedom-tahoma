@@ -1,0 +1,12 @@
+.DS_Store
+test.php
+core/config/common.config.php
+sftp-config.json
+
+.idea/*
+
+plugin-openzwave.iml
+.project
+.pydevproject
+
+
