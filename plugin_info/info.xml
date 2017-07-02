@@ -7,7 +7,7 @@
     <licence>AGPL</licence>
     <author>M.Vanhove</author>
     <installation>Aucune</installation>
-    <require>1.10</require>
-    <version>0.6</version>
+    <require>3.0</require>
+    <version>0.7</version>
     <category>automation protocol</category>
 </info>
