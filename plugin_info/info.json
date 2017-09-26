@@ -1,0 +1,11 @@
+{
+	"id" : "tahoma",
+	"name" : "Tahoma",
+	"description" : "Plugin pour utiliser Tahoma et Connexoon",
+	"licence" : "AGPL",
+	"author" : "M.Vanhove",
+	"require" : "3.0",
+	"category" : "automation protocol",
+  "display" : "panel",
+	"hasOwnDeamon" : true
+}
