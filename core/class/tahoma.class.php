@@ -533,6 +533,8 @@ class tahomaCmd extends cmd {
 					$type = $this->getConfiguration('request');
 					$parameters = str_replace('#slider#', $_options['slider'], $parameters);
 
+					$parameters = 100 - $parameters;
+
 					switch ($type) {
 						case 'closure':
 							if ($commandName == "setClosure") {
