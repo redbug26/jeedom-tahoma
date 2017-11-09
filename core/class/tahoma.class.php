@@ -259,6 +259,7 @@ class tahoma extends eqLogic {
 							$tahomaCmd->setConfiguration('parameters', '#slider#');
 							$tahomaCmd->setConfiguration('minValue', '0');
 							$tahomaCmd->setConfiguration('maxValue', '100');
+							$tahomaCmd->setDisplay('generic_type', 'FLAP_SLIDER');
 
 						} else if ($command->commandName == "open") {
 							$tahomaCmd->setType('action');
@@ -341,58 +342,63 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setConfiguration('type', $state->name);
 					$tahomaCmd->setType('info');
 					switch ($state->type) {
-						case 1:
-							$tahomaCmd->setSubType('numeric');
-							break;
-						case 2:
-							$tahomaCmd->setSubType('numeric');
-							break;
-						case 3:
-							$tahomaCmd->setSubType('string');
-							break;
+					case 1:
+						$tahomaCmd->setSubType('numeric');
+						break;
+					case 2:
+						$tahomaCmd->setSubType('numeric');
+						break;
+					case 3:
+						$tahomaCmd->setSubType('string');
+						break;
 					}
 					$tahomaCmd->setIsVisible(0);
 					$tahomaCmd->setEventOnly(1);
 					foreach ($module->attributes as $attribute) {
 						switch ($attribute->name) {
-							case 'core:MeasuredValueType':
-								switch ($attribute->value) {
-									case 'core:TemperatureInCelcius':
-										$tahomaCmd->setUnite('°C');
-										break;
-									case 'core:VolumeInCubicMeter':
-										$tahomaCmd->setUnite('m3');
-										break;
-									case 'core:ElectricalEnergyInWh':
-										$tahomaCmd->setUnite('Wh');
-										break;
-								}
+						case 'core:MeasuredValueType':
+							switch ($attribute->value) {
+							case 'core:TemperatureInCelcius':
+								$tahomaCmd->setUnite('°C');
 								break;
-							case 'core:MaxSensedValue':
-								$tahomaCmd->setConfiguration('maxValue', $attribute->value);
+							case 'core:VolumeInCubicMeter':
+								$tahomaCmd->setUnite('m3');
 								break;
-							case 'core:MinSensedValue':
-								$tahomaCmd->setConfiguration('minValue', $attribute->value);
+							case 'core:ElectricalEnergyInWh':
+								$tahomaCmd->setUnite('Wh');
 								break;
+							}
+							break;
+						case 'core:MaxSensedValue':
+							$tahomaCmd->setConfiguration('maxValue', $attribute->value);
+							break;
+						case 'core:MinSensedValue':
+							$tahomaCmd->setConfiguration('minValue', $attribute->value);
+							break;
+
 						}
 					}
 					$tahomaCmd->save();
 
 					$linkedCmdName = '';
 					switch ($state->name) {
-						//if ($state->name == "core:ClosureState") {
-						case 'core:ClosureState':
-							$linkedCmdName = 'setClosure';
-							break;
-						case 'core:ComfortRoomTemperatureState':
-							$linkedCmdName = 'setComfortTemperature';
-							break;
-						case 'core:EcoRoomTemperatureState':
-							$linkedCmdName = 'setEcoTemperature';
-							break;
-						case 'core:SecuredPositionTemperatureState':
-							$linkedCmdName = 'setSecuredPositionTemperature';
-							break;
+					//if ($state->name == "core:ClosureState") {
+					case 'core:ClosureState':
+						$linkedCmdName = 'setClosure';
+
+						$tahomaCmd->setDisplay('generic_type', 'FLAP_STATE');
+						$tahomaCmd->save();
+						break;
+					case 'core:ComfortRoomTemperatureState':
+						$linkedCmdName = 'setComfortTemperature';
+						break;
+					case 'core:EcoRoomTemperatureState':
+						$linkedCmdName = 'setEcoTemperature';
+						break;
+					case 'core:SecuredPositionTemperatureState':
+						$linkedCmdName = 'setSecuredPositionTemperature';
+						break;
+
 					}
 					if ($linkedCmdName !== '') {
 						foreach ($eqLogic->getCmd() as $action) {
@@ -436,7 +442,13 @@ class tahoma extends eqLogic {
 					foreach ($module->states as $state) {
 						if ($state->name == $command->getConfiguration('type')) {
 							$command->setCollectDate('');
-							$command->event($state->value);
+
+							$value = $state->value;
+							if ($command->getName() == "core:ClosureState") {
+								$value = 100 - $value;
+							}
+
+							$command->event($value);
 						}
 					}
 				}
@@ -529,22 +541,22 @@ class tahomaCmd extends cmd {
 
 		if ($this->type == 'action') {
 			switch ($this->subType) {
-				case 'slider':
-					$type = $this->getConfiguration('request');
-					$parameters = str_replace('#slider#', $_options['slider'], $parameters);
+			case 'slider':
+				$type = $this->getConfiguration('request');
+				$parameters = str_replace('#slider#', $_options['slider'], $parameters);
 
-					$parameters = 100 - $parameters;
+				$parameters = 100 - $parameters;
 
-					switch ($type) {
-						case 'closure':
-							if ($commandName == "setClosure") {
-								$parameters = array_map('intval', explode(",", $parameters));
-								tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $parameters, $this->getName());
-								return;
-							}
-							break;
+				switch ($type) {
+				case 'closure':
+					if ($commandName == "setClosure") {
+						$parameters = array_map('intval', explode(",", $parameters));
+						tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $parameters, $this->getName());
+						return;
 					}
 					break;
+				}
+				break;
 			}
 
 			if ($this->getConfiguration('nparams') == 0) {

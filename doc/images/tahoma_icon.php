@@ -8,7 +8,7 @@ if (!function_exists('imagecreatetruecolor')) {
 	exit;
 }
 
-$pos = $_REQUEST["pos"];
+$pos = 100 - $_REQUEST["pos"];
 
 $im = imagecreatetruecolor(210, 190);
 imagesavealpha($im, true);
