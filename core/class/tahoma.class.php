@@ -545,6 +545,8 @@ class tahomaCmd extends cmd {
 				$type = $this->getConfiguration('request');
 				$parameters = str_replace('#slider#', $_options['slider'], $parameters);
 
+				$newEventValue = $parameters;
+
 				$parameters = 100 - $parameters;
 
 				switch ($type) {
@@ -552,6 +554,21 @@ class tahomaCmd extends cmd {
 					if ($commandName == "setClosure") {
 						$parameters = array_map('intval', explode(",", $parameters));
 						tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $parameters, $this->getName());
+
+						$eqLogics = eqLogic::byType('tahoma');
+						foreach ($eqLogics as $eqLogic) {
+							if ($eqLogic->getConfiguration('deviceURL') == $deviceURL) {
+								foreach ($eqLogic->getCmd() as $command) {
+									if ($command->getType() == 'info') {
+										if ($command->getName() == "core:ClosureState") {
+											$command->setCollectDate('');
+											$command->event($newEventValue);
+										}
+									}
+								}
+							}
+						}
+
 						return;
 					}
 					break;
