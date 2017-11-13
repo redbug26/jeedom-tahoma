@@ -42,8 +42,6 @@ class tahoma extends eqLogic {
 
 	public static function pull($_options) {
 
-		//log::add('tahoma', 'debug', "pull(".$_options.")");
-
 		tahoma::syncEqLogicWithRazberry();
 
 	}
@@ -260,7 +258,6 @@ class tahoma extends eqLogic {
 							$tahomaCmd->setConfiguration('minValue', '0');
 							$tahomaCmd->setConfiguration('maxValue', '100');
 							$tahomaCmd->setDisplay('generic_type', 'FLAP_SLIDER');
-
 						} else if ($command->commandName == "open") {
 							$tahomaCmd->setType('action');
 							$tahomaCmd->setSubType('other');
@@ -632,7 +629,6 @@ class tahomaCmd extends cmd {
 
 	}
 
-	/*     * **********************Getteur Setteur*************************** */
 }
 
 ?>
