@@ -436,7 +436,7 @@ class tahoma extends eqLogic {
 				//Recupération des valeur et mise a jour des commandes info par event
 
 				if ($command->getType() == 'info') {
-					foreach ($module->states as $state) {l
+					foreach ($module->states as $state) {
 						if ($state->name == $command->getConfiguration('type')) {
 							$command->setCollectDate('');
 
