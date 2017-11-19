@@ -258,6 +258,15 @@ class tahoma extends eqLogic {
 							$tahomaCmd->setConfiguration('minValue', '0');
 							$tahomaCmd->setConfiguration('maxValue', '100');
 							$tahomaCmd->setDisplay('generic_type', 'FLAP_SLIDER');
+						} else if ($command->commandName == "setOrientation") {
+							$tahomaCmd->setType('action');
+							$tahomaCmd->setIsVisible(0);
+
+							$tahomaCmd->setSubType('slider');
+							$tahomaCmd->setConfiguration('request', 'orientation');
+							$tahomaCmd->setConfiguration('parameters', '#slider#');
+							$tahomaCmd->setConfiguration('minValue', '0');
+							$tahomaCmd->setConfiguration('maxValue', '180');
 						} else if ($command->commandName == "open") {
 							$tahomaCmd->setType('action');
 							$tahomaCmd->setSubType('other');
@@ -385,6 +394,10 @@ class tahoma extends eqLogic {
 
 						$tahomaCmd->setDisplay('generic_type', 'FLAP_STATE');
 						$tahomaCmd->save();
+						break;
+
+					case 'core:SlateOrientationState':
+						$linkedCmdName = 'setOrientation';
 						break;
 					case 'core:ComfortRoomTemperatureState':
 						$linkedCmdName = 'setComfortTemperature';
@@ -544,11 +557,32 @@ class tahomaCmd extends cmd {
 
 				$newEventValue = $parameters;
 
-				$parameters = 100 - $parameters;
-
 				switch ($type) {
+				case 'orientation':
+					if ($commandName == "setOrientation") {
+						$parameters = array_map('intval', explode(",", $parameters));
+						tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $parameters, $this->getName());
+
+						$eqLogics = eqLogic::byType('tahoma');
+						foreach ($eqLogics as $eqLogic) {
+							if ($eqLogic->getConfiguration('deviceURL') == $deviceURL) {
+								foreach ($eqLogic->getCmd() as $command) {
+									if ($command->getType() == 'info') {
+										if ($command->getName() == "core:SlateOrientationState") {
+											$command->setCollectDate('');
+											$command->event($newEventValue);
+										}
+									}
+								}
+							}
+						}
+
+						return;
+					}
 				case 'closure':
 					if ($commandName == "setClosure") {
+						$parameters = 100 - $parameters;
+
 						$parameters = array_map('intval', explode(",", $parameters));
 						tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $parameters, $this->getName());
 
