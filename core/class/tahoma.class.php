@@ -290,6 +290,16 @@ class tahoma extends eqLogic {
 							$tahomaCmd->setType('action');
 							$tahomaCmd->setSubType('other');
 							$tahomaCmd->setDisplay('icon', '<i class="fa fa-toggle-on"></i>');
+						} else if ($command->commandName == "alarmPartial1") {
+ +							//zone alarme 1
+ +                                                        $tahomaCmd->setType('action');
+ +                                                        $tahomaCmd->setSubType('other');
+ +                                                        $tahomaCmd->setDisplay('icon', '<i class="fa fa-toggle-on"></i>');
+ +                                              } else if ($command->commandName == "alarmPartial2") {
+ +							//zone alarme 2
+ +                                                        $tahomaCmd->setType('action');
+ +                                                        $tahomaCmd->setSubType('other');
+ +                                                        $tahomaCmd->setDisplay('icon', '<i class="fa fa-toggle-on"></i>');                       
 						} else if ($command->commandName == "off") {
 							$tahomaCmd->setType('action');
 							$tahomaCmd->setSubType('other');
