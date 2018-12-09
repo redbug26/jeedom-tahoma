@@ -630,7 +630,7 @@ class tahomaCmd extends cmd {
 			if ($commandName == "cancelExecutions") {
 				$execId = $parameters[0];
 
-				log::add('tahoma', 'debug', "will cancelExecutions: (" . $execId . ")");
+				log::add('tahoma', 'debug', "will cancelExecutions: (" . $execId . ") from tahoma.class");
 
 				tahomaCancelExecutions($userId, $userPassword, $execId);
 			} else {
