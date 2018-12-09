@@ -346,7 +346,7 @@ function tahomaExecAction($userId, $userPassword, $oid, $delay = 0) {
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
 	);
 
-	$output = tahomaExecCurlAndRetry($userId, $userPassword, $optionns);
+	$output = tahomaExecCurlAndRetry($userId, $userPassword, $options);
 
 	if ($output == "") {
 		echo "Invalid return";
