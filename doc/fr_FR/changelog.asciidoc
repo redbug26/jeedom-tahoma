@@ -1,2 +1,8 @@
+19 Dec 2018:
+Prise en charge de la serrure connectée Somfy (merci unknownboy)
+
+9 Dec 2018:
+Restriction d'utilisation de l'API suite aux retours de Somfy
+
 7 Dec 2017:
 Support de alarmPartial1 (merci Jallard-fr)
