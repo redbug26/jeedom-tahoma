@@ -290,7 +290,7 @@ class tahoma extends eqLogic {
 							$tahomaCmd->setSubType('select');
 							$tahomaCmd->setIsVisible(0);
 							$tahomaCmd->setConfiguration('parameters', '#select#');
-							$tahomaCmd->setConfiguration('listValue', 'lock|Ouvrir;unlock|Fermer');
+							$tahomaCmd->setConfiguration('listValue', 'unlocked|Ouvrir;locked|Fermer');
 							$tahomaCmd->setDisplay('icon', '<i class="fa fa-unlock-alt"></i>');
 						} else if ($command->commandName == "my") {
 							$tahomaCmd->setType('action');
@@ -640,6 +640,10 @@ class tahomaCmd extends cmd {
 					}
 					break;
 				}
+				case 'select':
+					if ($commandName == 'setLockedUnlocked'){
+						$parameters = str_replace('#select#', $_options['select'], $parameters);
+					}
 				break;
 			}
 
@@ -678,13 +682,16 @@ class tahomaCmd extends cmd {
 					}
 				}
 			}
-
+			// Rafraichissement des valeurs après actions
 			if ($commandName == 'setSecuredPositionTemperature'
 				|| $commandName == 'setEcoTemperature'
 				|| $commandName == 'setComfortTemperature'
 				|| $commandName == 'setManuAndSetPointModes'
 				|| $commandName == 'setActiveMode'
-				|| $commandName == 'setOnOff') {
+				|| $commandName == 'setOnOff'
+				|| $commandName == 'lock'
+				|| $commandName == 'unlock'
+				|| $commandName == 'setLockedUnlocked') {
 				sleep(5);
 				tahoma::syncEqLogicWithRazberry();
 			}
