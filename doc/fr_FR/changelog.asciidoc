@@ -1,3 +1,6 @@
+05 fev 2019:
+Prise en charge gestionnaire d'energie et commande fil pilote somfy (merci lefilliatre)
+
 19 Dec 2018:
 Prise en charge de la serrure connectée Somfy (merci unknownboy)
 

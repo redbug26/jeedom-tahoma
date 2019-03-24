@@ -123,7 +123,7 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setName('Off');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setOnOff');
+					$tahomaCmd->setConfiguration('commandName', 'setHeatingLevel');
 					$tahomaCmd->setConfiguration('nparams', 1);
 					$tahomaCmd->setConfiguration('parameters', 'off');
 					$tahomaCmd->save();
@@ -156,7 +156,7 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setName('Eco');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setManuAndSetPointModes');
+					$tahomaCmd->setConfiguration('commandName', 'setHeatingLevel');
 					$tahomaCmd->setConfiguration('nparams', 1);
 					$tahomaCmd->setConfiguration('parameters', 'eco');
 					$tahomaCmd->save();
@@ -167,7 +167,7 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setName('Confort');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setManuAndSetPointModes');
+					$tahomaCmd->setConfiguration('commandName', 'setHeatingLevel');
 					$tahomaCmd->setConfiguration('nparams', 1);
 					$tahomaCmd->setConfiguration('parameters', 'comfort');
 					$tahomaCmd->save();
@@ -178,9 +178,9 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setName('HG');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setManuAndSetPointModes');
+					$tahomaCmd->setConfiguration('commandName', 'setHeatingLevel');
 					$tahomaCmd->setConfiguration('nparams', 1);
-					$tahomaCmd->setConfiguration('parameters', 'secured');
+					$tahomaCmd->setConfiguration('parameters', 'frostprotection');
 					$tahomaCmd->save();
 
 					$tahomaCmd = new tahomaCmd();
@@ -687,6 +687,7 @@ class tahomaCmd extends cmd {
 				|| $commandName == 'setEcoTemperature'
 				|| $commandName == 'setComfortTemperature'
 				|| $commandName == 'setManuAndSetPointModes'
+				|| $commandName == 'setHeatingLevel'
 				|| $commandName == 'setActiveMode'
 				|| $commandName == 'setOnOff'
 				|| $commandName == 'lock'
