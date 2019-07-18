@@ -1,0 +1,12 @@
+= Documentation du plugin Tahoma
+redbug <jeedom.tahoma@kyuran.be>
+
+== Introduction
+
+* à completer
+
+== Configuration
+
+* à completer
+
+https://www.jeedom.com/forum/viewtopic.php?f=133&t=8646[Lien vers le sujet tahoma sur le forum jeedom]

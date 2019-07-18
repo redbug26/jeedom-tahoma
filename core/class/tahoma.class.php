@@ -41,19 +41,14 @@ class tahoma extends eqLogic {
 	}
 
 	public static function pull($_options) {
-
 		sleep(rand(0, 240));
-
 		tahoma::syncEqLogicWithRazberry();
-
 	}
 
 	public static function pullSonde($_options) {
-
 	}
 
 	public function postInsert() {
-
 	}
 
 	public static function deamonRunning() {
@@ -128,7 +123,7 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setName('Off');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setOnOff');
+					$tahomaCmd->setConfiguration('commandName', 'setHeatingLevel');
 					$tahomaCmd->setConfiguration('nparams', 1);
 					$tahomaCmd->setConfiguration('parameters', 'off');
 					$tahomaCmd->save();
@@ -161,7 +156,7 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setName('Eco');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setManuAndSetPointModes');
+					$tahomaCmd->setConfiguration('commandName', 'setHeatingLevel');
 					$tahomaCmd->setConfiguration('nparams', 1);
 					$tahomaCmd->setConfiguration('parameters', 'eco');
 					$tahomaCmd->save();
@@ -172,7 +167,7 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setName('Confort');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setManuAndSetPointModes');
+					$tahomaCmd->setConfiguration('commandName', 'setHeatingLevel');
 					$tahomaCmd->setConfiguration('nparams', 1);
 					$tahomaCmd->setConfiguration('parameters', 'comfort');
 					$tahomaCmd->save();
@@ -183,9 +178,9 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setName('HG');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setManuAndSetPointModes');
+					$tahomaCmd->setConfiguration('commandName', 'setHeatingLevel');
 					$tahomaCmd->setConfiguration('nparams', 1);
-					$tahomaCmd->setConfiguration('parameters', 'secured');
+					$tahomaCmd->setConfiguration('parameters', 'frostprotection');
 					$tahomaCmd->save();
 
 					$tahomaCmd = new tahomaCmd();
@@ -253,7 +248,6 @@ class tahoma extends eqLogic {
 						if ($command->commandName == "setClosure") {
 							$tahomaCmd->setType('action');
 							$tahomaCmd->setIsVisible(0);
-
 							$tahomaCmd->setSubType('slider');
 							$tahomaCmd->setConfiguration('request', 'closure');
 							$tahomaCmd->setConfiguration('parameters', '#slider#');
@@ -263,7 +257,6 @@ class tahoma extends eqLogic {
 						} else if ($command->commandName == "setOrientation") {
 							$tahomaCmd->setType('action');
 							$tahomaCmd->setIsVisible(0);
-
 							$tahomaCmd->setSubType('slider');
 							$tahomaCmd->setConfiguration('request', 'orientation');
 							$tahomaCmd->setConfiguration('parameters', '#slider#');
@@ -279,6 +272,26 @@ class tahoma extends eqLogic {
 							$tahomaCmd->setSubType('other');
 							$tahomaCmd->setDisplay('icon', '<i class="fa fa-arrow-down"></i>');
 							$tahomaCmd->setDisplay('generic_type', 'FLAP_DOWN');
+						} else if ($command->commandName == "lock") {
+							// serrure connectée : commande action ouvrir
+							$tahomaCmd->setType('action');
+							$tahomaCmd->setSubType('other');
+							$tahomaCmd->setDisplay('icon', '<i class="fa fa-lock"></i>');
+							$tahomaCmd->setDisplay('generic_type', 'LOCK_CLOSE');
+						} else if ($command->commandName == "unlock") {
+							// serrure connectée : commande action fermer
+							$tahomaCmd->setType('action');
+							$tahomaCmd->setSubType('other');
+							$tahomaCmd->setDisplay('icon', '<i class="fa fa-unlock"></i>');
+							$tahomaCmd->setDisplay('generic_type', 'LOCK_OPEN');
+						} else if ($command->commandName == "setLockedUnlocked") {
+							// serrure connectée : commande action ouvrir ou fermer
+							$tahomaCmd->setType('action');
+							$tahomaCmd->setSubType('select');
+							$tahomaCmd->setIsVisible(0);
+							$tahomaCmd->setConfiguration('parameters', '#select#');
+							$tahomaCmd->setConfiguration('listValue', 'unlocked|Ouvrir;locked|Fermer');
+							$tahomaCmd->setDisplay('icon', '<i class="fa fa-unlock-alt"></i>');
 						} else if ($command->commandName == "my") {
 							$tahomaCmd->setType('action');
 							$tahomaCmd->setSubType('other');
@@ -403,11 +416,9 @@ class tahoma extends eqLogic {
 					//if ($state->name == "core:ClosureState") {
 					case 'core:ClosureState':
 						$linkedCmdName = 'setClosure';
-
 						$tahomaCmd->setDisplay('generic_type', 'FLAP_STATE');
 						$tahomaCmd->save();
 						break;
-
 					case 'core:SlateOrientationState':
 						$linkedCmdName = 'setOrientation';
 						break;
@@ -420,7 +431,12 @@ class tahoma extends eqLogic {
 					case 'core:SecuredPositionTemperatureState':
 						$linkedCmdName = 'setSecuredPositionTemperature';
 						break;
-
+					case 'core:LockedUnlockedState':
+						// Serrure connectée état lié
+						$linkedCmdName = 'setLockedUnlocked';
+						$tahomaCmd->setDisplay('generic_type', 'LOCK_STATE');
+						$tahomaCmd->save();
+						break;
 					}
 					if ($linkedCmdName !== '') {
 						foreach ($eqLogic->getCmd() as $action) {
@@ -455,7 +471,15 @@ class tahoma extends eqLogic {
 						$command->setDisplay('generic_type', 'FLAP_STOP');
 						$command->save();
 					}
-
+					// Serrure connectée
+					if ($command->getName() == 'lock') {
+						$command->setDisplay('generic_type', 'LOCK_CLOSE');
+						$command->save();
+					}
+					if ($command->getName() == 'unlock') {
+						$command->setDisplay('generic_type', 'LOCK_OPEN');
+						$command->save();
+					}
 				}
 
 				//Recupération des valeur et mise a jour des commandes info par event
@@ -616,6 +640,10 @@ class tahomaCmd extends cmd {
 					}
 					break;
 				}
+				case 'select':
+					if ($commandName == 'setLockedUnlocked'){
+						$parameters = str_replace('#select#', $_options['select'], $parameters);
+					}
 				break;
 			}
 
@@ -654,13 +682,17 @@ class tahomaCmd extends cmd {
 					}
 				}
 			}
-
+			// Rafraichissement des valeurs après actions
 			if ($commandName == 'setSecuredPositionTemperature'
 				|| $commandName == 'setEcoTemperature'
 				|| $commandName == 'setComfortTemperature'
 				|| $commandName == 'setManuAndSetPointModes'
+				|| $commandName == 'setHeatingLevel'
 				|| $commandName == 'setActiveMode'
-				|| $commandName == 'setOnOff') {
+				|| $commandName == 'setOnOff'
+				|| $commandName == 'lock'
+				|| $commandName == 'unlock'
+				|| $commandName == 'setLockedUnlocked') {
 				sleep(5);
 				tahoma::syncEqLogicWithRazberry();
 			}
