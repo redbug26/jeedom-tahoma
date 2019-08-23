@@ -40,7 +40,7 @@ class tahoma extends eqLogic {
 		log::add('tahoma', 'debug', "Tahoma event cmdName: " . $tahomaCmd->getName() . " / value: " . $value);
 	}
 
-	public static function pull($_options) {
+	public static function pull($_options="") {
 		sleep(rand(0, 240));
 		tahoma::syncEqLogicWithRazberry();
 	}
