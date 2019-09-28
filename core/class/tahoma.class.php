@@ -109,17 +109,6 @@ class tahoma extends eqLogic {
 					$tahomaCmd = new tahomaCmd();
 					$tahomaCmd->setType('action');
 					$tahomaCmd->setSubType('other');
-					$tahomaCmd->setName('On');
-					$tahomaCmd->setEqLogic_id($eqLogic->getId());
-					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setOperatingMode');
-					$tahomaCmd->setConfiguration('nparams', 1);
-					$tahomaCmd->setConfiguration('parameters', 'on');
-					$tahomaCmd->save();
-
-					$tahomaCmd = new tahomaCmd();
-					$tahomaCmd->setType('action');
-					$tahomaCmd->setSubType('other');
 					$tahomaCmd->setName('Off');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
@@ -139,88 +128,41 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setConfiguration('parameters', 'auto');
 					$tahomaCmd->save();
 
-					//$tahomaCmd = new tahomaCmd();
-					//$tahomaCmd->setType('action');
-					//$tahomaCmd->setSubType('other');
-					//$tahomaCmd->setName('Manuel');
-					//$tahomaCmd->setEqLogic_id($eqLogic->getId());
-					//$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					//$tahomaCmd->setConfiguration('commandName', 'setOperatingMode');
-					//$tahomaCmd->setConfiguration('nparams', 1);
-					//$tahomaCmd->setConfiguration('parameters', 'manu');
-					//$tahomaCmd->save();
-
 					$tahomaCmd = new tahomaCmd();
 					$tahomaCmd->setType('action');
 					$tahomaCmd->setSubType('other');
-					$tahomaCmd->setName('Eco');
+					$tahomaCmd->setName('Basic');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
 					$tahomaCmd->setConfiguration('commandName', 'setOperatingMode');
 					$tahomaCmd->setConfiguration('nparams', 1);
-					$tahomaCmd->setConfiguration('parameters', 'eco');
+					$tahomaCmd->setConfiguration('parameters', 'basic');
 					$tahomaCmd->save();
 
 					$tahomaCmd = new tahomaCmd();
 					$tahomaCmd->setType('action');
 					$tahomaCmd->setSubType('other');
-					$tahomaCmd->setName('Confort');
+					$tahomaCmd->setName('Prog');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
 					$tahomaCmd->setConfiguration('commandName', 'setOperatingMode');
 					$tahomaCmd->setConfiguration('nparams', 1);
-					$tahomaCmd->setConfiguration('parameters', 'comfort');
+					$tahomaCmd->setConfiguration('parameters', 'internal');
 					$tahomaCmd->save();
-
-					$tahomaCmd = new tahomaCmd();
-					$tahomaCmd->setType('action');
-					$tahomaCmd->setSubType('other');
-					$tahomaCmd->setName('HG');
-					$tahomaCmd->setEqLogic_id($eqLogic->getId());
-					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setHeatingLevel');
-					$tahomaCmd->setConfiguration('nparams', 1);
-					$tahomaCmd->setConfiguration('parameters', 'frostprotection');
-					$tahomaCmd->save();
-
+					
 					$tahomaCmd = new tahomaCmd();
 					$tahomaCmd->setType('action');
 					$tahomaCmd->setSubType('slider');
-					$tahomaCmd->setName('Confort temperature');
+					$tahomaCmd->setName('Target temperature');
 					$tahomaCmd->setEqLogic_id($eqLogic->getId());
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setComfortTemperature');
+					$tahomaCmd->setConfiguration('commandName', 'setTargetTemperature');
 					$tahomaCmd->setConfiguration('nparams', 1);
 					$tahomaCmd->setConfiguration('parameters', '#slider#');
-					$tahomaCmd->setConfiguration('minValue', '15');
+					$tahomaCmd->setConfiguration('minValue', '12');
 					$tahomaCmd->setConfiguration('maxValue', '30');
 					$tahomaCmd->save();
 
-					$tahomaCmd = new tahomaCmd();
-					$tahomaCmd->setType('action');
-					$tahomaCmd->setSubType('slider');
-					$tahomaCmd->setName('Eco temperature');
-					$tahomaCmd->setEqLogic_id($eqLogic->getId());
-					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setEcoTemperature');
-					$tahomaCmd->setConfiguration('nparams', 1);
-					$tahomaCmd->setConfiguration('parameters', '#slider#');
-					$tahomaCmd->setConfiguration('minValue', '10');
-					$tahomaCmd->setConfiguration('maxValue', '25');
-					$tahomaCmd->save();
-
-					$tahomaCmd = new tahomaCmd();
-					$tahomaCmd->setType('action');
-					$tahomaCmd->setSubType('slider');
-					$tahomaCmd->setName('HG temperature');
-					$tahomaCmd->setEqLogic_id($eqLogic->getId());
-					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
-					$tahomaCmd->setConfiguration('commandName', 'setSecuredPositionTemperature');
-					$tahomaCmd->setConfiguration('nparams', 1);
-					$tahomaCmd->setConfiguration('parameters', '#slider#');
-					$tahomaCmd->setConfiguration('minValue', '5');
-					$tahomaCmd->setConfiguration('maxValue', '10');
-					$tahomaCmd->save();
 
 				} else {
 					foreach ($module->definition->commands as $command) {
@@ -422,14 +364,8 @@ class tahoma extends eqLogic {
 					case 'core:SlateOrientationState':
 						$linkedCmdName = 'setOrientation';
 						break;
-					case 'core:ComfortRoomTemperatureState':
-						$linkedCmdName = 'setComfortTemperature';
-						break;
-					case 'core:EcoRoomTemperatureState':
-						$linkedCmdName = 'setEcoTemperature';
-						break;
-					case 'core:SecuredPositionTemperatureState':
-						$linkedCmdName = 'setSecuredPositionTemperature';
+					case 'core:TargetRoomTemperatureState':
+						$linkedCmdName = 'setTargetTemperature';
 						break;
 					case 'core:LockedUnlockedState':
 						// Serrure connectée état lié
@@ -683,13 +619,8 @@ class tahomaCmd extends cmd {
 				}
 			}
 			// Rafraichissement des valeurs après actions
-			if ($commandName == 'setSecuredPositionTemperature'
-				|| $commandName == 'setEcoTemperature'
-				|| $commandName == 'setComfortTemperature'
-				|| $commandName == 'setManuAndSetPointModes'
-				|| $commandName == 'setHeatingLevel'
+			if ( $commandName == 'setTargetTemperature'
 				|| $commandName == 'setOperatingMode'
-				|| $commandName == 'setOnOff'
 				|| $commandName == 'lock'
 				|| $commandName == 'unlock'
 				|| $commandName == 'setLockedUnlocked') {
