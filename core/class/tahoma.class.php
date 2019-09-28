@@ -158,7 +158,7 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
 					$tahomaCmd->setConfiguration('commandName', 'setTargetTemperature');
 					$tahomaCmd->setConfiguration('nparams', 1);
-					$tahomaCmd->setConfiguration('parameters', #slider#);
+					$tahomaCmd->setConfiguration('parameters', '#slider#');
 					$tahomaCmd->setConfiguration('minValue', '12');
 					$tahomaCmd->setConfiguration('maxValue', '30');
 					$tahomaCmd->save();
