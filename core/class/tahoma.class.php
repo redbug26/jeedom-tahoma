@@ -160,9 +160,19 @@ class tahoma extends eqLogic {
 					$tahomaCmd->setConfiguration('nparams', 1);
 					$tahomaCmd->setConfiguration('parameters', '#slider#');
 					$tahomaCmd->setConfiguration('minValue', '12');
-					$tahomaCmd->setConfiguration('maxValue', '30');
+					$tahomaCmd->setConfiguration('maxValue', '28');
 					$tahomaCmd->save();
 
+					$tahomaCmd = new tahomaCmd();
+					$tahomaCmd->setType('action');
+					$tahomaCmd->setSubType('other');
+					$tahomaCmd->setName('Hors Gel');
+					$tahomaCmd->setEqLogic_id($eqLogic->getId());
+					$tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
+					$tahomaCmd->setConfiguration('commandName', 'setTargetTemperature');
+					$tahomaCmd->setConfiguration('nparams', 1);
+					$tahomaCmd->setConfiguration('parameters', '7');
+					$tahomaCmd->save();
 
 				} else {
 					foreach ($module->definition->commands as $command) {
@@ -587,6 +597,8 @@ class tahomaCmd extends cmd {
 				$parameters = "";
 			} else if ($commandName == "setClosure") {
 				$parameters = array_map('intval', explode(",", $parameters));
+			}else if ($commandName == "setTargetTemperature") {
+				$parameters = array_map('floatval', explode(",", $parameters));
 			} else {
 				$parameters = explode(",", $parameters);
 			}
