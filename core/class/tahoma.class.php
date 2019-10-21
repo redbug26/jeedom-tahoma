@@ -261,7 +261,7 @@ class tahoma extends eqLogic {
 							$tahomaCmd->setConfiguration('request', 'orientation');
 							$tahomaCmd->setConfiguration('parameters', '#slider#');
 							$tahomaCmd->setConfiguration('minValue', '0');
-							$tahomaCmd->setConfiguration('maxValue', '180');
+							$tahomaCmd->setConfiguration('maxValue', '100');
 						} else if ($command->commandName == "open") {
 							$tahomaCmd->setType('action');
 							$tahomaCmd->setSubType('other');
