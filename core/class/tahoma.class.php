@@ -670,8 +670,7 @@ class tahomaCmd extends cmd {
 				foreach ($eqLogics as $eqLogic) {
 					if ($eqLogic->getConfiguration('deviceURL') == $deviceURL) {
 						foreach ($eqLogic->getCmd() as $command) {
-							//if ($command->getConfiguration('commandName') == "cancelExecutions") {
-							if ($commandName == "cancelExecutions") {
+							if ($command->getConfiguration('commandName') == "cancelExecutions") {
 								log::add('tahoma', 'debug', "set cancelExecutions: (" . $execId . ")");
 
 								$command->setConfiguration('parameters', $execId);
