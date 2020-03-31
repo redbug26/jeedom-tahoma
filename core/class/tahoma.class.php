@@ -213,7 +213,7 @@ class tahoma extends eqLogic {
 							$tahomaCmd->setConfiguration('request', 'orientation');
 							$tahomaCmd->setConfiguration('parameters', '#slider#');
 							$tahomaCmd->setConfiguration('minValue', '0');
-							$tahomaCmd->setConfiguration('maxValue', '180');
+							$tahomaCmd->setConfiguration('maxValue', '100');
 						} else if ($command->commandName == "open") {
 							$tahomaCmd->setType('action');
 							$tahomaCmd->setSubType('other');
@@ -618,8 +618,7 @@ class tahomaCmd extends cmd {
 				foreach ($eqLogics as $eqLogic) {
 					if ($eqLogic->getConfiguration('deviceURL') == $deviceURL) {
 						foreach ($eqLogic->getCmd() as $command) {
-							//if ($command->getConfiguration('commandName') == "cancelExecutions") {
-							if ($commandName == "cancelExecutions") {
+							if ($command->getConfiguration('commandName') == "cancelExecutions") {
 								log::add('tahoma', 'debug', "set cancelExecutions: (" . $execId . ")");
 
 								$command->setConfiguration('parameters', $execId);
