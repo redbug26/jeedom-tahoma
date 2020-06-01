@@ -29,6 +29,7 @@ function tahomaLogon($userId, $userPassword) {
 
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);   
 
 	curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
 	// curl_setopt($ch, CURLOPT_REFERER, 'https://www.tahomalink.com/enduser-mobile-web/steer-html5-client/tahoma/');
@@ -44,6 +45,7 @@ function tahomaLogon($userId, $userPassword) {
 
 	if (($output == "") || ($httpcode == 401)) {
 		log::add('tahoma', 'debug', "new cookie - logon: ko: " . $httpcode . "(" . $retour . ")");
+		log::add('tahoma', 'debug', "return: " . print_r($output, true));
 		return false;
 	}
 
@@ -90,6 +92,7 @@ function tahomaGetModules($userId, $userPassword, $decode = 1) {
 		CURLOPT_POST => true,
 		CURLOPT_CUSTOMREQUEST => "PUT",
 		CURLOPT_POSTFIELDS => $postData,
+    	CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
 	);
@@ -167,6 +170,7 @@ function tahomaSendCommandZ($userId, $userPassword, $deviceURL, $commandName, $p
 
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);   
 
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7");
 
@@ -213,6 +217,7 @@ function tahomaSendCommandZ($userId, $userPassword, $deviceURL, $commandName, $p
 
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);   
 
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7");
 
@@ -267,6 +272,7 @@ function tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $pa
 		CURLOPT_HEADER => false,
 		CURLOPT_POST => true,
 		CURLOPT_POSTFIELDS => $postData,
+		CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
 	);
