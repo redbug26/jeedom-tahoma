@@ -29,7 +29,7 @@ function tahomaLogon($userId, $userPassword) {
 
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);   
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 	curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
 	// curl_setopt($ch, CURLOPT_REFERER, 'https://www.tahomalink.com/enduser-mobile-web/steer-html5-client/tahoma/');
@@ -91,7 +91,6 @@ function tahomaGetModules($userId, $userPassword, $decode = 1) {
 		CURLOPT_HEADER => false,
 		CURLOPT_POST => true,
 		CURLOPT_CUSTOMREQUEST => "PUT",
-		CURLOPT_POSTFIELDS => $postData,
     	CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
@@ -170,7 +169,7 @@ function tahomaSendCommandZ($userId, $userPassword, $deviceURL, $commandName, $p
 
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);   
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7");
 
@@ -217,7 +216,7 @@ function tahomaSendCommandZ($userId, $userPassword, $deviceURL, $commandName, $p
 
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);   
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7");
 
@@ -296,6 +295,7 @@ function tahomaExecCurlAndRetry($userId, $userPassword, $options) {
 
 	curl_setopt($ch, CURLOPT_COOKIEFILE, $ckfile);
 	curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 	$output = curl_exec($ch);
 	$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -316,6 +316,7 @@ function tahomaExecCurlAndRetry($userId, $userPassword, $options) {
 
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $ckfile);
 		curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 		$output = curl_exec($ch);
 		$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
