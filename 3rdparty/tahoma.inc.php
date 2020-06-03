@@ -296,6 +296,7 @@ function tahomaExecCurlAndRetry($userId, $userPassword, $options) {
 
 	curl_setopt($ch, CURLOPT_COOKIEFILE, $ckfile);
 	curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 	$output = curl_exec($ch);
 	$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -316,6 +317,7 @@ function tahomaExecCurlAndRetry($userId, $userPassword, $options) {
 
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $ckfile);
 		curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 		$output = curl_exec($ch);
 		$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -340,6 +342,7 @@ function tahomaExecAction($userId, $userPassword, $oid) {
 	$options = array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
+    	CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_POST => true,
 		CURLOPT_HEADER => false,
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
