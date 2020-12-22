@@ -382,6 +382,9 @@ class tahoma extends eqLogic {
 					case 3:
 						$tahomaCmd->setSubType('string');
 						break;
+					case 6:
+						$tahomaCmd->setSubType('binary');
+						break;
 					}
 					$tahomaCmd->setIsVisible(0);
 					$tahomaCmd->setEventOnly(1);
