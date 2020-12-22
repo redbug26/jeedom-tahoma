@@ -8,6 +8,7 @@
 	"category" : "automation protocol",
 	"display" : "panel",
 	"hasOwnDeamon" : false,
+	"compatibility": ["miniplus", "smart", "rpi", "docker", "diy", "v4"],
 	"changelog" : "https://github.com/redbug26/jeedom-tahoma/tree/master/doc/#language#/changelog.asciidoc",
 	"documentation" : "https://github.com/redbug26/jeedom-tahoma/tree/master/doc/#language#/index.asciidoc"
 }
