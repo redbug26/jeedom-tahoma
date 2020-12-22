@@ -15,4 +15,4 @@ Les périphériques arriveront directement sur le serveur jeedom.
 - Ne modifier pas le cron en dessous de 30 minutes sous peine d'être blacklisté chez Somfy.
 - Activer l'utilisation distante de la box sur votre compte Somfy afin que le serveur jeedom puisse communiquer avec les serveurs Somfy.
 
-https://www.jeedom.com/forum/viewtopic.php?f=133&t=8646[Lien vers le sujet tahoma sur le forum jeedom]
+https://community.jeedom.com/t/plugin-tahoma-somfy/9941[Lien vers le sujet tahoma sur le forum jeedom]
