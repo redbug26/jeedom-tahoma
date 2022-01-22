@@ -29,6 +29,7 @@ function tahomaLogon($userId, $userPassword) {
 
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);   
 
 	curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
 	// curl_setopt($ch, CURLOPT_REFERER, 'https://www.tahomalink.com/enduser-mobile-web/steer-html5-client/tahoma/');
@@ -44,6 +45,7 @@ function tahomaLogon($userId, $userPassword) {
 
 	if (($output == "") || ($httpcode == 401)) {
 		log::add('tahoma', 'debug', "new cookie - logon: ko: " . $httpcode . "(" . $retour . ")");
+		log::add('tahoma', 'debug', "return: " . print_r($output, true));
 		return false;
 	}
 
@@ -54,15 +56,12 @@ function tahomaLogon($userId, $userPassword) {
 
 function tahomaGetScenarios($userId, $userPassword, $decode = 1) {
 
-	$url = "https://www.tahomalink.com/enduser-mobile-web/externalAPI/json/getActionGroups";
+	$url = "https://www.tahomalink.com/enduser-mobile-web/enduserAPI/actionGroups";
 
 	$options = array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_HEADER => false,
-		CURLOPT_POST => true,
-		CURLOPT_POSTFIELDS => $postData,
-		CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
 	);
 
@@ -78,20 +77,22 @@ function tahomaGetScenarios($userId, $userPassword, $decode = 1) {
 
 	$tahoma = json_decode($output);
 
-	return $tahoma->actionGroups;
+	return $tahoma;
 
 }
 
 function tahomaGetModules($userId, $userPassword, $decode = 1) {
 
-	$url = "https://www.tahomalink.com/enduser-mobile-web/externalAPI/refreshAllStates";
+	$url = "https://www.tahomalink.com/enduser-mobile-web/enduserAPI/setup/devices/states/refresh";
 
 	$options = array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_HEADER => false,
 		CURLOPT_POST => true,
+		CURLOPT_CUSTOMREQUEST => "PUT",
 		CURLOPT_POSTFIELDS => $postData,
+    	CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
 	);
@@ -102,14 +103,12 @@ function tahomaGetModules($userId, $userPassword, $decode = 1) {
 		echo "Invalid return";
 	}
 
-	$url = "https://www.tahomalink.com/enduser-mobile-web/externalAPI/json/getSetup?_=1434999539745";
+	$url = "https://www.tahomalink.com/enduser-mobile-web/enduserAPI/setup";
 
 	$options = array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_HEADER => false,
-		CURLOPT_POST => true,
-		CURLOPT_POSTFIELDS => $postData,
 		CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
 	);
@@ -126,24 +125,20 @@ function tahomaGetModules($userId, $userPassword, $decode = 1) {
 
 	$tahoma = json_decode($output);
 
-	return $tahoma->setup->devices;
+	return $tahoma->devices;
 }
 
 function tahomaCancelExecutions($userId, $userPassword, $execId) {
 
-	$url = "https://www.tahomalink.com/enduser-mobile-web/externalAPI/json/cancelExecutions";
+	$url = sprintf("https://www.tahomalink.com/enduser-mobile-web/enduserAPI/exec/current/setup/%s", $execId);
 
 	log::add('tahoma', 'debug', "cancelExecutions: (" . $execId . ") from tahoma.inc");
-
-	$postData = array('execId' => $execId);
 
 	$options = array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_HEADER => false,
-		CURLOPT_POST => true,
-		CURLOPT_POSTFIELDS => $postData,
-		CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
+		CURLOPT_CUSTOMREQUEST => "DELETE",
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
 	);
 
@@ -175,6 +170,7 @@ function tahomaSendCommandZ($userId, $userPassword, $deviceURL, $commandName, $p
 
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);   
 
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7");
 
@@ -221,6 +217,7 @@ function tahomaSendCommandZ($userId, $userPassword, $deviceURL, $commandName, $p
 
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);   
 
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7");
 
@@ -275,6 +272,7 @@ function tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $pa
 		CURLOPT_HEADER => false,
 		CURLOPT_POST => true,
 		CURLOPT_POSTFIELDS => $postData,
+		CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
 	);
@@ -298,6 +296,7 @@ function tahomaExecCurlAndRetry($userId, $userPassword, $options) {
 
 	curl_setopt($ch, CURLOPT_COOKIEFILE, $ckfile);
 	curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 	$output = curl_exec($ch);
 	$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -318,6 +317,7 @@ function tahomaExecCurlAndRetry($userId, $userPassword, $options) {
 
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $ckfile);
 		curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 		$output = curl_exec($ch);
 		$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -332,17 +332,19 @@ function tahomaExecCurlAndRetry($userId, $userPassword, $options) {
 	return $output;
 }
 
-function tahomaExecAction($userId, $userPassword, $oid, $delay = 0) {
+function tahomaExecAction($userId, $userPassword, $oid) {
 
 	log::add('tahoma', 'debug', "exec action " . $oid);
 
-	$url = sprintf("https://www.tahomalink.com/enduser-mobile-web/externalAPI/json/scheduleActionGroup?oid=%s&delay=%d", $oid, $delay);
+ 	$now = round(microtime(true) * 1000);
+	$url = sprintf("https://www.tahomalink.com/enduser-mobile-web/enduserAPI/exec/schedule/%s/%d", $oid, $now);
 
 	$options = array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
+    	CURLOPT_SSL_VERIFYPEER => false,
+		CURLOPT_POST => true,
 		CURLOPT_HEADER => false,
-		CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
 	);
 
