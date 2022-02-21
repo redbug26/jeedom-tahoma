@@ -387,7 +387,8 @@ class tahoma extends eqLogic {
 						break;
 					}
 					$tahomaCmd->setIsVisible(0);
-					$tahomaCmd->setEventOnly(1);
+//					$tahomaCmd->setEventOnly(1);  // Not used anymore
+					
 					foreach ($module->attributes as $attribute) {
 						switch ($attribute->name) {
 						case 'core:MeasuredValueType':
