@@ -563,7 +563,6 @@ class tahoma extends eqLogic {
 
 	public function getImage() {
 		$closureState = $this->getCmd(null, 'core:ClosureState');
-		log::add('tahoma', 'info', "closureState: " . $closureState);
 		if (is_object($closureState)) {
 			$value = $closureState->execCmd();
 			if (is_numeric($value)) {
