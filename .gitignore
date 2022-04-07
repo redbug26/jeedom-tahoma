@@ -1,3 +1,4 @@
+/nbproject/private/
 .DS_Store
 test.php
 core/config/common.config.php
@@ -8,5 +9,3 @@ sftp-config.json
 plugin-openzwave.iml
 .project
 .pydevproject
-
-

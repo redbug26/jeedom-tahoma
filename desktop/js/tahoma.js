@@ -103,7 +103,7 @@ function addCmdToTable(_cmd) {
         tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-size="mini" data-l1key="isHistorized" />{{Historiser}}</label></span> ';
         tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-size="mini" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';
         tr += '<span class="expertModeVisible"><label class="checkbox-inline"><input type="checkbox" data-size="mini" class="cmdAttr" data-l1key="display" data-l2key="invertBinary" />{{Inverser}}</label></span> ';
-        tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-size="mini" data-l1key="eventOnly"' + disabled + ' />{{EvÃ¨nement}}</label></span> ';
+        tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-size="mini" data-l1key="eventOnly"' + disabled + ' />{{Evénement}}</label></span> ';
         tr += '<input style="width : 81%;margin-bottom : 2px;" class="tooltips cmdAttr form-control input-sm" data-l1key="cache" data-l2key="lifetime" placeholder="{{Lifetime cache}}" title="{{Lifetime cache}}">';
         tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="width : 40%;display : inline-block;"> ';
         tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width : 40%;display : inline-block;">';
@@ -188,7 +188,7 @@ function addCmdToTable(_cmd) {
     });
 }
 
-$('#bt_syncEqLogic').on('click', function () {
+$('.eqLogicAction[data-action=search]').on('click', function () {
     syncEqLogicWithRazberry();
 });
 

@@ -385,6 +385,8 @@ class tahoma extends eqLogic {
 					case 6:
 						$tahomaCmd->setSubType('binary');
 						break;
+					default :
+						$tahomaCmd->setSubType('string');
 					}
 					$tahomaCmd->setIsVisible(0);
 //					$tahomaCmd->setEventOnly(1);  // Not used anymore
@@ -557,6 +559,18 @@ class tahoma extends eqLogic {
 				$tahomaCmd->save();
 			}
 		}
+	}
+
+	public function getImage() {
+		$closureState = $this->getCmd(null, 'core:ClosureState');
+		log::add('tahoma', 'info', "closureState: " . $closureState);
+		if (is_object($closureState)) {
+			$value = $closureState->execCmd();
+			if (is_numeric($value)) {
+				return "/plugins/" . __CLASS__ . "/doc/images/tahoma_icon.php?pos=" . $value;
+			}
+		}
+		return parent::getImage();
 	}
 }
 
