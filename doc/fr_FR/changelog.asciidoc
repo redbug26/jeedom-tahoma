@@ -1,11 +1,30 @@
-05 fev 2019:
-Prise en charge gestionnaire d'energie et commande fil pilote somfy (merci lefilliatre)
+- 30 avr 2022
+* Ajout de la page panel (merci @lucguinchard)
+* Affichage dekstop (merci @lucguinchard)
 
-19 Dec 2018:
-Prise en charge de la serrure connectée Somfy (merci unknownboy)
+- 21 fev 2022
+* Correction du setEventOnly (deprecié dans jeedom v4)
 
-9 Dec 2018:
-Restriction d'utilisation de l'API suite aux retours de Somfy
+- 22 dec 2020
+* Ajout de la sous fonction ingo dans le "core:movingstate" (merci @tioborto)
 
-7 Dec 2017:
-Support de alarmPartial1 (merci Jallard-fr)
+- 3 juin 2020
+* Correction des erreurs SSL
+
+- 18 oct 2019
+* Support de php7.3 (merci @Mips2648)
+
+- 20 sep 2019
+* Modification de l'orientation des stores BSO (merci @jim005)
+
+- 05 fev 2019
+* Prise en charge gestionnaire d'energie et commande fil pilote somfy (merci @lefilliatre)
+
+- 19 Dec 2018
+* Prise en charge de la serrure connectée Somfy (merci @unknownboy)
+
+- 9 Dec 2018
+* Restriction d'utilisation de l'API suite aux retours de Somfy
+
+- 7 Dec 2017
+* Support de alarmPartial1 (merci @jallard-fr)
