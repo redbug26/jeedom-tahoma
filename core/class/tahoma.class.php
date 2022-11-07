@@ -113,7 +113,44 @@ class tahoma extends eqLogic
 
                 /***********************************/
                 //Actions
-                if ($module->uiClass == "HeatingSystem") {
+                
+                if ($module->uiClass == "HitachiHeatingSystem") {
+                    $tahomaCmd = new tahomaCmd();
+                    $tahomaCmd->setType('action');
+                    $tahomaCmd->setSubType('other');
+                    $tahomaCmd->setName('Automatic');
+                    $tahomaCmd->setEqLogic_id($eqLogic->getId());
+                    $tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
+                    $tahomaCmd->setConfiguration('commandName', 'setAutoManu');
+                    $tahomaCmd->setConfiguration('nparams', 1);
+                    $tahomaCmd->setConfiguration('parameters', 'auto');
+                    $tahomaCmd->save();
+
+                    $tahomaCmd = new tahomaCmd();
+                    $tahomaCmd->setType('action');
+                    $tahomaCmd->setSubType('other');
+                    $tahomaCmd->setName('Manuel');
+                    $tahomaCmd->setEqLogic_id($eqLogic->getId());
+                    $tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
+                    $tahomaCmd->setConfiguration('commandName', 'setAutoManu');
+                    $tahomaCmd->setConfiguration('nparams', 1);
+                    $tahomaCmd->setConfiguration('parameters', 'manu');
+                    $tahomaCmd->save();
+
+                    // $tahomaCmd = new tahomaCmd();
+                    // $tahomaCmd->setType('action');
+                    // $tahomaCmd->setSubType('slider');
+                    // $tahomaCmd->setName('Confort temperature');
+                    // $tahomaCmd->setEqLogic_id($eqLogic->getId());
+                    // $tahomaCmd->setConfiguration('deviceURL', $module->deviceURL);
+                    // $tahomaCmd->setConfiguration('commandName', 'setComfortTemperature');
+                    // $tahomaCmd->setConfiguration('nparams', 1);
+                    // $tahomaCmd->setConfiguration('parameters', '#slider#');
+                    // $tahomaCmd->setConfiguration('minValue', '15');
+                    // $tahomaCmd->setConfiguration('maxValue', '30');
+                    // $tahomaCmd->save();
+
+                } else if ($module->uiClass == "HeatingSystem") {
                     $tahomaCmd = new tahomaCmd();
                     $tahomaCmd->setType('action');
                     $tahomaCmd->setSubType('other');
@@ -249,6 +286,10 @@ class tahoma extends eqLogic
 
                         if ($module->controllableName == "rts:LightRTSComponent") {
                             // Lampe
+                        }
+
+                        if ($module->controllableName == "ovp:HLinkMainController") {
+                            // Hitachi Link
                         }
 
                         $useCmd = true;
