@@ -249,7 +249,7 @@ function tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $pa
 
 	$command["name"] = $commandName;
 
-	if ($parameters != "") {
+	if (($parameters != array("")) && ($parameters != "")) {
 		$command["parameters"] = $parameters; // array(100);
 	}
 
