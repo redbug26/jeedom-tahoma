@@ -191,6 +191,8 @@ function tahomaSendCommandZ($userId, $userPassword, $deviceURL, $commandName, $p
 
 	$command["name"] = $commandName;
 
+	log::add('tahoma', 'debug', "194:".var_export($parameters, true));
+
 	if ($parameters != "") {
 		$command["parameters"] = $parameters; // array(100);
 	}
@@ -248,6 +250,8 @@ function tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $pa
 	$action["deviceURL"] = $deviceURL;
 
 	$command["name"] = $commandName;
+
+	log::add('tahoma', 'debug', "254:".var_export($parameters, true));
 
 	if (($parameters != array("")) && ($parameters != "")) {
 		$command["parameters"] = $parameters; // array(100);
