@@ -253,7 +253,7 @@ function tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $pa
 
 	log::add('tahoma', 'debug', "254:".var_export($parameters, true));
 
-	if (($parameters != array("")) && ($parameters != "")) {
+	if (!empty($parameters)) { 
 		$command["parameters"] = $parameters; // array(100);
 	}
 
