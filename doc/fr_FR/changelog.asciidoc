@@ -1,3 +1,6 @@
+- 16 jan 2023
+* Fix du on/off status dans certaines commandes (merci @mips)
+
 - 15 jan 2023
 * Fix du setClosure 100
 
