@@ -1,3 +1,6 @@
+- 15 jan 2023
+* Fix du setClosure 100
+
 - 30 avr 2022
 * Ajout de la page panel (merci @lucguinchard)
 * Affichage dekstop (merci @lucguinchard)
