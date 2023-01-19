@@ -1,3 +1,6 @@
+- 19 jan 2023
+* Test du tableau vide en tant que parametres
+
 - 15 jan 2023
 * Fix du setClosure 100
 
