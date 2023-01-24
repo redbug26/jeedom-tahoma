@@ -19,7 +19,11 @@ function tahomaLogon($userId, $userPassword) {
 
 	$url = "https://www.tahomalink.com/enduser-mobile-web/enduserAPI/login";
 
-	$postData = "userId=$userId&userPassword=$userPassword";
+	$postData = sprintf(
+		"userId=%s&userPassword=%s",
+		urlencode($userId),
+		urlencode($userPassword),
+	);
 
 	$ch = curl_init();
 
