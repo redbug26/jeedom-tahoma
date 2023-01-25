@@ -1,3 +1,6 @@
+- 25 jan 2023
+* Credentials containing specials chars breaks authentication. It should be url-encoded. (Thanks @Romain Janvier)
+
 - 19 jan 2023
 * Test du tableau vide en tant que parametres
 
