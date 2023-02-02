@@ -19,7 +19,11 @@ function tahomaLogon($userId, $userPassword) {
 
 	$url = "https://www.tahomalink.com/enduser-mobile-web/enduserAPI/login";
 
-	$postData = "userId=$userId&userPassword=$userPassword";
+	$postData = sprintf(
+		"userId=%s&userPassword=%s",
+		urlencode($userId),
+		urlencode($userPassword),
+	);
 
 	$ch = curl_init();
 
@@ -253,7 +257,7 @@ function tahomaSendCommand($userId, $userPassword, $deviceURL, $commandName, $pa
 
 	log::add('tahoma', 'debug', "254:".var_export($parameters, true));
 
-	if (!empty($parameters)) { 
+	if ( (!empty($parameters)) && ($parameters != array("")) ) {
 		$command["parameters"] = $parameters; // array(100);
 	}
 
